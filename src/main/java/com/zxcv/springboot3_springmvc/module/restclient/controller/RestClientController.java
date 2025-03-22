@@ -1,6 +1,6 @@
 package com.zxcv.springboot3_springmvc.module.restclient.controller;
 
-import com.zxcv.springboot3_springmvc.module.restclient.dto.PostTestRequestDto;
+import com.zxcv.springboot3_springmvc.module.restclient.payload.PostTestRequest;
 import com.zxcv.springboot3_springmvc.module.restclient.service.RestClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +22,8 @@ public class RestClientController {
     }
 
     @PostMapping("/post-test")
-    public String postTest(@RequestBody PostTestRequestDto postTestRequestDto) {
-        return restClientService.postTest(postTestRequestDto);
+    public String postTest(@RequestBody PostTestRequest postTestRequest) {
+        return restClientService.postTest(postTestRequest);
     }
 
 }
