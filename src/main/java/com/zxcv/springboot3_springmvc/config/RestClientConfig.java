@@ -59,6 +59,11 @@ public class RestClientConfig {
                 .requestFactory(new BufferingClientHttpRequestFactory(factory))
                 .requestInterceptor(new GeneralLoggingInterceptor())
                 .messageConverters(getMessageConverter())
+                .defaultStatusHandler(
+                        status -> true,
+                        (request, response) -> {
+                        }
+                )
                 .build();
     }
 
