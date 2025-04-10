@@ -17,7 +17,7 @@ public class GeneralLoggingInterceptor implements ClientHttpRequestInterceptor {
     public @NonNull ClientHttpResponse intercept(HttpRequest request, @NonNull byte[] body,
                                                  ClientHttpRequestExecution execution) throws IOException {
         log.info("================== CLIENT HTTP REQUEST START ==================");
-        log.info("> Request URL      : {}, {}", request.getMethod(), request.getURI());
+        log.info("> Request URL      : {} {}", request.getMethod(), request.getURI());
         log.info("> Request headers  : {}", request.getHeaders());
         log.info("> Request body     : {}", new String(body, StandardCharsets.UTF_8));
         var response = execution.execute(request, body);
