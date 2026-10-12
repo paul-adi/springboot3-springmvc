@@ -1,6 +1,6 @@
 package com.zxcv.springboot3_springmvc.module.springretry.service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
+import tools.jackson.core.type.TypeReference;
 import com.zxcv.springboot3_springmvc.module.restclient.payload.GetTestResponse;
 import com.zxcv.springboot3_springmvc.module.restclient.service.RestClientService;
 import lombok.RequiredArgsConstructor;

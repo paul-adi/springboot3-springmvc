@@ -5,7 +5,6 @@ import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.lang.NonNull;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -14,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 public class GeneralLoggingInterceptor implements ClientHttpRequestInterceptor {
 
     @Override
-    public @NonNull ClientHttpResponse intercept(HttpRequest request, @NonNull byte[] body,
+    public ClientHttpResponse intercept(HttpRequest request, byte[] body,
                                                  ClientHttpRequestExecution execution) throws IOException {
         log.info("================== CLIENT HTTP REQUEST START ==================");
         log.info("> Request URL      : {} {}", request.getMethod(), request.getURI());

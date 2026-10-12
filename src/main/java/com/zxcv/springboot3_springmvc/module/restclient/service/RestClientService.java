@@ -1,12 +1,11 @@
 package com.zxcv.springboot3_springmvc.module.restclient.service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
 import com.zxcv.springboot3_springmvc.module.restclient.payload.GetTestResponse;
 import com.zxcv.springboot3_springmvc.module.restclient.payload.PostTestRequest;
 import com.zxcv.springboot3_springmvc.module.restclient.payload.PostTestResponse;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -60,7 +59,6 @@ public class RestClientService {
         }
     }
 
-    @SneakyThrows
     public <T> T httpGet(String url, HttpHeaders httpHeaders, TypeReference<T> responseType) {
         httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         var responseEntity = httpGet(url, httpHeaders);
@@ -78,7 +76,6 @@ public class RestClientService {
                 .toEntity(String.class);
     }
 
-    @SneakyThrows
     public <T> T httpPost(String url, HttpHeaders httpHeaders, Object requestBody, TypeReference<T> responseType) {
         httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         var responseEntity = httpPost(url, httpHeaders, requestBody);
