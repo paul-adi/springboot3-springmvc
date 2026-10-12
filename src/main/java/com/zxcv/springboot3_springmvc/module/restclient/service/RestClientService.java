@@ -35,11 +35,11 @@ public class RestClientService {
         try {
             var response = httpGet(getTestUrl, new HttpHeaders(), new TypeReference<GetTestResponse>() {
             });
-            log.info("Response : {}", response);
+            log.info("Response status : {}", response.status());
 
             return "Success";
         } catch (Exception e) {
-            log.error("getTest error, exception : ", e);
+            log.error("getTest error. Exception : ", e);
             return "Failed";
         }
     }
@@ -55,7 +55,7 @@ public class RestClientService {
 
             return "Success";
         } catch (Exception e) {
-            log.error("postTest error, exception : ", e);
+            log.error("postTest error. Exception : ", e);
             return "Failed";
         }
     }
@@ -63,28 +63,38 @@ public class RestClientService {
     @SneakyThrows
     public <T> T httpGet(String url, HttpHeaders httpHeaders, TypeReference<T> responseType) {
         httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        var responseEntity = httpGet(url, httpHeaders);
 
-        ResponseEntity<Object> responseEntity = restClient.get()
+        return objectMapper.readValue(responseEntity.getBody(), responseType);
+    }
+
+    public ResponseEntity<String> httpGet(String url, HttpHeaders httpHeaders) {
+        httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
+        return restClient.get()
                 .uri(url)
                 .headers(headers -> headers.addAll(httpHeaders))
                 .retrieve()
-                .toEntity(Object.class);
-
-        return objectMapper.convertValue(responseEntity.getBody(), responseType);
+                .toEntity(String.class);
     }
 
     @SneakyThrows
     public <T> T httpPost(String url, HttpHeaders httpHeaders, Object requestBody, TypeReference<T> responseType) {
         httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        var responseEntity = httpPost(url, httpHeaders, requestBody);
 
-        ResponseEntity<Object> responseEntity = restClient.post()
+        return objectMapper.readValue(responseEntity.getBody(), responseType);
+    }
+
+    public ResponseEntity<String> httpPost(String url, HttpHeaders httpHeaders, Object requestBody) {
+        httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
+        return restClient.post()
                 .uri(url)
                 .headers(header -> header.addAll(httpHeaders))
                 .body(requestBody)
                 .retrieve()
-                .toEntity(Object.class);
-
-        return objectMapper.convertValue(responseEntity.getBody(), responseType);
+                .toEntity(String.class);
     }
 
 }

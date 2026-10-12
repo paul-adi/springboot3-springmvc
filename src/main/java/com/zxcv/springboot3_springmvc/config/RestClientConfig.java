@@ -9,15 +9,14 @@ import org.apache.hc.core5.util.Timeout;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.MediaType;
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestClient;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Configuration
@@ -69,9 +68,7 @@ public class RestClientConfig {
 
     private List<HttpMessageConverter<?>> getMessageConverter() {
         List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
-        var converter = new MappingJackson2HttpMessageConverter();
-        converter.setSupportedMediaTypes(Collections.singletonList(MediaType.ALL));
-        messageConverters.add(converter);
+        messageConverters.add(new StringHttpMessageConverter(StandardCharsets.UTF_8));
 
         return messageConverters;
     }
